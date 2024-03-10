@@ -1,0 +1,22 @@
+apiVersion: apps/v1 # Decribes the api version of your API server
+kind: Deployment # Kubernetes resource kind we are creating, It will inform to the kubernetes which type of object you are creating for ex: Deployment or service
+metadata:
+  name: spring-boot-k8s
+spec:
+  selector:
+    matchLabels:
+      app: spring-boot-k8s
+  replicas: 2 # Number of replicas(pods) that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: spring-boot-k8s
+    spec:
+      containers:
+        - name: spring-boot-k8s
+          image: springboot-k8s-ex:1.0
+          # Image that will be used to containers in the cluster
+          imagePullPolicy: IfNotPresent # Kubernetes will fetch the docker image from docker hub or local based on the policy provided here.
+          ports:
+            - containerPort: 8080
+# The port that the container is running on in the cluster
